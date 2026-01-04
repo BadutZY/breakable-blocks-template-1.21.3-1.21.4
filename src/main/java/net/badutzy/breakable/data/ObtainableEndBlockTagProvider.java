@@ -1,4 +1,4 @@
-package net.gnomecraft.obtainableend.data;
+package net.badutzy.breakable.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -16,6 +16,8 @@ public class ObtainableEndBlockTagProvider extends FabricTagProvider.BlockTagPro
     @Override
     public void configure(RegistryWrapper.WrapperLookup registries) {
         // basic block tags
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(Blocks.END_PORTAL_FRAME);
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(Blocks.END_PORTAL_FRAME)
+                .add(Blocks.SPAWNER);
     }
 }

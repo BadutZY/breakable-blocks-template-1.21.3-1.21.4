@@ -1,6 +1,6 @@
-package net.gnomecraft.obtainableend.mixin;
+package net.badutzy.breakable.mixin;
 
-import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
+import net.badutzy.breakable.net.ObtainableEndServerNetworking;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -47,11 +47,9 @@ public abstract class MixinEndPortalFrameBlock extends Block {
     @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
         // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
-        settings.lootTable(Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.ofVanilla("blocks/end_portal_frame"))));
-
-        // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
-        // the hardness to that of obsidian but leaving the resistance like end portal frame block.
-        return settings.hardness(50.0f);
+        // Set loot table to empty optional untuk mencegah vanilla loot drop
+        settings.lootTable(Optional.empty());
+        return settings.hardness(25.0f);
     }
 
     /*
@@ -92,12 +90,11 @@ public abstract class MixinEndPortalFrameBlock extends Block {
      * When an end portal frame piece is broken, try to break any associated end portal blocks.
      */
     @Override
-    public void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         Direction primary = state.get(EndPortalFrameBlock.FACING);
         Direction secondary = primary.rotateClockwise(Direction.Axis.Y);
 
-        super.onStateReplaced(state, world, pos, moved);
-        BlockState newState = world.getBlockState(pos);
+        super.onStateReplaced(state, world, pos, newState, moved);
 
         if (    newState != null &&
                 newState.isOf(Blocks.END_PORTAL_FRAME) &&
@@ -108,13 +105,18 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             return;
         }
 
+        // Only proceed if world is ServerWorld to avoid casting issues
+        if (!(world instanceof ServerWorld serverWorld)) {
+            return;
+        }
+
         BlockPos target;
         for (int movePrimary = 1; movePrimary <= 3; ++movePrimary) {
             for (int moveSecondary = -2; moveSecondary <= 2; ++moveSecondary) {
                 target = pos.offset(primary, movePrimary).offset(secondary, moveSecondary);
 
-                if (world.getBlockState(target).isOf(Blocks.END_PORTAL)) {
-                    world.breakBlock(target, false);
+                if (serverWorld.getBlockState(target).isOf(Blocks.END_PORTAL)) {
+                    serverWorld.breakBlock(target, false);
                 }
             }
         }

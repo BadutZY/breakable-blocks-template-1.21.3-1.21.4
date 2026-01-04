@@ -1,4 +1,4 @@
-package net.gnomecraft.obtainableend.data;
+package net.badutzy.breakable.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -10,6 +10,5 @@ public class ObtainableEndDatagen implements DataGeneratorEntrypoint {
 
         pack.addProvider(ObtainableEndBlockLootTableProvider::new);
         pack.addProvider(ObtainableEndBlockTagProvider::new);
-        pack.addProvider(ObtainableEndRecipeProvider::new);
     }
 }

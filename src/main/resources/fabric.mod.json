@@ -1,31 +1,27 @@
 {
 	"schemaVersion": 1,
-	"id": "obtainable-end",
-	"version": "${version}",
-	"name": "Obtainable End",
-	"description": "Make end portals obtainable in survival",
+	"id": "breakable-blocks",
+	"version": "0.8.1",
+	"name": "Breakable Blocks",
+	"description": "Make Blocks like End Portal Frame and Spawner Breakable and Obtainable in survival",
 	"authors": [
-		"GniftyGnome"
+		"BadutZY"
 	],
 	"contact": {
-		"homepage": "http://www.gnomecraft.net/",
-		"sources": "https://github.com/gniftygnome/obtainable-end"
+		"homepage": "https://modrinth.com/user/BadutZY"
 	},
 	"license": "MIT",
 	"icon": "assets/obtainable-end/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"client": [
-			"net.gnomecraft.obtainableend.ObtainableEndClient"
+			"net.badutzy.breakable.ObtainableEndClient"
 		],
 		"main": [
-			"net.gnomecraft.obtainableend.ObtainableEnd"
+			"net.badutzy.breakable.ObtainableEnd"
 		],
 		"fabric-datagen": [
-			"net.gnomecraft.obtainableend.data.ObtainableEndDatagen"
-		],
-		"modmenu": [
-			"net.gnomecraft.obtainableend.config.ObtainableEndModMenuApiImpl"
+			"net.badutzy.breakable.data.ObtainableEndDatagen"
 		]
 	},
 	"accessWidener": "obtainable-end.accesswidener",
@@ -38,7 +34,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.3",
-		"minecraft": ">=1.21.5 <1.22",
+		"minecraft": ">=1.21.3 <1.22",
 		"fabric-api": "*",
 		"cloth-config": "*"
 	}

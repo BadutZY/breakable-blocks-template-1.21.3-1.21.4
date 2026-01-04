@@ -1,4 +1,4 @@
-package net.gnomecraft.obtainableend.net;
+package net.badutzy.breakable.net;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

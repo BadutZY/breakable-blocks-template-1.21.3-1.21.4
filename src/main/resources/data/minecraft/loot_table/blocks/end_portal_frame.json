@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:end_portal_frame"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "minecraft:end_portal_frame",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "eye": "true"
+              }
+            }
+          ],
+          "name": "minecraft:ender_eye"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

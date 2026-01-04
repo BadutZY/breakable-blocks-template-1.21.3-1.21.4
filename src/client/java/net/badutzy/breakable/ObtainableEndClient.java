@@ -1,7 +1,7 @@
-package net.gnomecraft.obtainableend;
+package net.badutzy.breakable;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.gnomecraft.obtainableend.net.client.ObtainableEndClientNetworking;
+import net.badutzy.breakable.net.client.ObtainableEndClientNetworking;
 
 public class ObtainableEndClient implements ClientModInitializer {
 	@Override
