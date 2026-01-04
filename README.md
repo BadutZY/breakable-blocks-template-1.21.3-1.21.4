@@ -1,4 +1,4 @@
-<img width="250" height="250" alt="icon-min" src="https://github.com/user-attachments/assets/873184da-9244-403f-9b64-4676ee3e81ea" />
+<a href="https://modrinth.com/mod/breakable-blocks/"><img width="250" height="250" alt="icon-min" src="https://github.com/user-attachments/assets/873184da-9244-403f-9b64-4676ee3e81ea" /></a>
 
 
 I modified a mod called Obtainable End by gniftygnome and I added my own mod to make the spawner obtainable as well.
