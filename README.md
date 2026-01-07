@@ -1,18 +1,27 @@
-<a href="https://modrinth.com/mod/breakable-blocks/">
-<img width="250" height="250" alt="icon-min" src="https://github.com/user-attachments/assets/0ec45d5a-8a18-4601-ba34-f1730d710b97" />
-</a>
+**This mod is make spawner and end portal frame breakable and obtainable in survival mode**
 
+---------
 
-I modified a mod called Obtainable End by gniftygnome and I added my own mod to make the spawner obtainable as well.
+<center>
 
+![title](https://cdn.modrinth.com/data/cached_images/4a60f651fefe188dac7e324352ce4ff1104be07c.png)
 
-# Breakable Block
-Make end portals and spawner obtainable in survival.
+![ps](https://cdn.modrinth.com/data/cached_images/22bc3b74a095f1860e0c826130a5b775016e49b3.png)
+ 
+### Spawner
 
-See gniftygnome Obtainable End MOD [wiki](https://github.com/gniftygnome/obtainable-end/wiki) for configuration and details.
-[this is the source code](https://github.com/gniftygnome/obtainable-end)
+**Spawner can only be destroy by using pickaxe any variants.**
 
-<img width="512" height="150" alt="minecraft_title" src="https://github.com/user-attachments/assets/b9324b4d-fa9d-4d49-b4cc-5fff7b2ef173" />
+![spawner](https://cdn.modrinth.com/data/cached_images/8aad5da74ae3d62a937e436e5dbb72fd7b542b7a.gif)
 
-![spawn](https://github.com/user-attachments/assets/7f97312f-f91f-4aaf-9f4d-4fccf688884e)
+### End Portal Frame
 
+**End Portal Frame can be destroy by using any items.**
+
+![ep](https://cdn.modrinth.com/data/cached_images/0f48afb135f75af6f508bb93a9ec56306059f4a5.gif)
+
+![ps](https://cdn.modrinth.com/data/cached_images/22bc3b74a095f1860e0c826130a5b775016e49b3.png)
+
+**use my other mod called [Craftable Items](https://modrinth.com/mod/craftable-items-mod) or something like that to make this mod more useful**
+
+</center>
