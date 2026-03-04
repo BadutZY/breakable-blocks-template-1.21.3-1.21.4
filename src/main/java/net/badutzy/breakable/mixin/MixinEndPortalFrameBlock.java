@@ -1,6 +1,6 @@
-package net.gnomecraft.obtainableend.mixin;
+package net.badutzy.breakable.mixin;
 
-import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
+import net.badutzy.breakable.net.ObtainableEndServerNetworking;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -47,11 +47,13 @@ public abstract class MixinEndPortalFrameBlock extends Block {
     @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
         // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
+        // Set loot table untuk End Portal Frame agar bisa drop items
         settings.lootTable(Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.ofVanilla("blocks/end_portal_frame"))));
 
-        // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
-        // the hardness to that of obsidian but leaving the resistance like end portal frame block.
-        return settings.hardness(50.0f);
+        // Set hardness agar bisa dihancurkan dengan pickaxe
+        // CRITICAL: requiresTool() memastikan hanya tool yang tepat yang bisa harvest block ini
+        // Tanpa requiresTool(), modded pickaxe akan trigger loot table 2x
+        return settings.hardness(25.0f).requiresTool();
     }
 
     /*
