@@ -195,7 +195,6 @@ public class ObtainableEnd implements ModInitializer {
 		ANIMAL_SPAWN_EGGS.put(EntityType.TURTLE, new ItemStack(Items.TURTLE_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.WOLF, new ItemStack(Items.WOLF_SPAWN_EGG));
 
-		// Neutral mobs
 		ANIMAL_SPAWN_EGGS.put(EntityType.DOLPHIN, new ItemStack(Items.DOLPHIN_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.HOGLIN, new ItemStack(Items.HOGLIN_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.IRON_GOLEM, new ItemStack(Items.IRON_GOLEM_SPAWN_EGG));
@@ -206,7 +205,6 @@ public class ObtainableEnd implements ModInitializer {
 		ANIMAL_SPAWN_EGGS.put(EntityType.ZOGLIN, new ItemStack(Items.ZOGLIN_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.VILLAGER, new ItemStack(Items.VILLAGER_SPAWN_EGG));
 
-		// Hostile mobs
 		ANIMAL_SPAWN_EGGS.put(EntityType.BLAZE, new ItemStack(Items.BLAZE_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.BOGGED, new ItemStack(Items.BOGGED_SPAWN_EGG));
 		ANIMAL_SPAWN_EGGS.put(EntityType.BREEZE, new ItemStack(Items.BREEZE_SPAWN_EGG));
