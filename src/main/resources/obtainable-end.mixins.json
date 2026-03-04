@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.gnomecraft.obtainableend.mixin",
+  "package": "net.badutzy.breakable.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "MixinEndPortalFrameBlock",

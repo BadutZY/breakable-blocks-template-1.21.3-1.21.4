@@ -1,9 +1,10 @@
-package net.gnomecraft.obtainableend.mixin;
+package net.badutzy.breakable.mixin;
 
-import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
+import net.badutzy.breakable.net.ObtainableEndServerNetworking;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
@@ -46,12 +47,30 @@ public abstract class MixinEndPortalFrameBlock extends Block {
 
     @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
-        // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
+        // Set loot table untuk End Portal Frame agar bisa drop items
         settings.lootTable(Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.ofVanilla("blocks/end_portal_frame"))));
 
-        // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
-        // the hardness to that of obsidian but leaving the resistance like end portal frame block.
-        return settings.hardness(50.0f);
+        // Set hardness 25.0f (sama dengan Obsidian) dan blast resistance 1200.0f
+        // requiresTool() WAJIB agar hanya pickaxe yang bisa harvest
+        return settings
+                .hardness(25.0f)
+                .resistance(1200.0f)
+                .requiresTool();
+    }
+
+    /**
+     * CRITICAL FIX: Override afterBreak untuk memastikan Eye of Ender drop
+     * Method ini dipanggil setelah block dihancurkan oleh player
+     * Kita drop Eye of Ender secara manual jika ada di block state
+     */
+    @Override
+    public void afterBreak(World world, net.minecraft.entity.player.PlayerEntity player, BlockPos pos, BlockState state, @Nullable net.minecraft.block.entity.BlockEntity blockEntity, ItemStack tool) {
+        super.afterBreak(world, player, pos, state, blockEntity, tool);
+
+        // Drop Eye of Ender jika block memiliki eye dan tidak dalam creative mode
+        if (!world.isClient() && state.get(EndPortalFrameBlock.EYE) && !player.isCreative()) {
+            Block.dropStack(world, pos, new ItemStack(Items.ENDER_EYE));
+        }
     }
 
     /*
