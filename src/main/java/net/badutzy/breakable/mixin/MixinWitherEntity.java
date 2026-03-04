@@ -1,11 +1,9 @@
-package net.gnomecraft.obtainableend.mixin;
+package net.badutzy.breakable.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.gnomecraft.obtainableend.ObtainableEnd;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,9 +22,6 @@ public class MixinWitherEntity {
     )
     @SuppressWarnings("unused")
     private static boolean obtainableend$frameImmunity(BlockState instance, TagKey<Block> tag, Operation<Boolean> original) {
-        if (!ObtainableEnd.getConfig().frameIsWitherImmune && instance.isOf(Blocks.END_PORTAL_FRAME)) {
-            return false;
-        }
 
         return original.call(instance, tag);
     }

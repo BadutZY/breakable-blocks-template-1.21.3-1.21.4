@@ -1,6 +1,6 @@
-package net.gnomecraft.obtainableend.net;
+package net.badutzy.breakable.net;
 
-import net.gnomecraft.obtainableend.ObtainableEnd;
+import net.badutzy.breakable.ObtainableEnd;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
