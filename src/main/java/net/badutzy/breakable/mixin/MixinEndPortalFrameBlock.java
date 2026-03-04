@@ -1,9 +1,12 @@
-package net.gnomecraft.obtainableend.mixin;
+package net.badutzy.breakable.mixin;
 
-import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
+import net.badutzy.breakable.net.ObtainableEndServerNetworking;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
@@ -19,8 +22,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Mixin(EndPortalFrameBlock.class)
 public abstract class MixinEndPortalFrameBlock extends Block {
@@ -44,14 +48,27 @@ public abstract class MixinEndPortalFrameBlock extends Block {
         super(settings);
     }
 
+    /*
+     * Override getDroppedStacks to make end portal frame drop itself when broken
+     */
+    @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+        List<ItemStack> drops = new ArrayList<>();
+
+        // Always drop end portal frame
+        drops.add(new ItemStack(Items.END_PORTAL_FRAME));
+
+        // If it has eye of ender, drop it too
+        if (state.get(EndPortalFrameBlock.EYE)) {
+            drops.add(new ItemStack(Items.ENDER_EYE));
+        }
+
+        return drops;
+    }
+
     @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
-        // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
-        settings.lootTable(Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.ofVanilla("blocks/end_portal_frame"))));
-
-        // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
-        // the hardness to that of obsidian but leaving the resistance like end portal frame block.
-        return settings.hardness(50.0f);
+        return settings.hardness(25.0f).resistance(1200.0f);
     }
 
     /*
@@ -92,14 +109,13 @@ public abstract class MixinEndPortalFrameBlock extends Block {
      * When an end portal frame piece is broken, try to break any associated end portal blocks.
      */
     @Override
-    public void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         Direction primary = state.get(EndPortalFrameBlock.FACING);
         Direction secondary = primary.rotateClockwise(Direction.Axis.Y);
 
-        super.onStateReplaced(state, world, pos, moved);
-        BlockState newState = world.getBlockState(pos);
+        super.onStateReplaced(state, world, pos, newState, moved);
 
-        if (    newState != null &&
+        if (newState != null &&
                 newState.isOf(Blocks.END_PORTAL_FRAME) &&
                 newState.get(EndPortalFrameBlock.EYE) &&
                 primary.equals(newState.get(EndPortalFrameBlock.FACING))) {
@@ -108,13 +124,18 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             return;
         }
 
+        // Only proceed if world is ServerWorld to avoid casting issues
+        if (!(world instanceof ServerWorld serverWorld)) {
+            return;
+        }
+
         BlockPos target;
         for (int movePrimary = 1; movePrimary <= 3; ++movePrimary) {
             for (int moveSecondary = -2; moveSecondary <= 2; ++moveSecondary) {
                 target = pos.offset(primary, movePrimary).offset(secondary, moveSecondary);
 
-                if (world.getBlockState(target).isOf(Blocks.END_PORTAL)) {
-                    world.breakBlock(target, false);
+                if (serverWorld.getBlockState(target).isOf(Blocks.END_PORTAL)) {
+                    serverWorld.breakBlock(target, false);
                 }
             }
         }

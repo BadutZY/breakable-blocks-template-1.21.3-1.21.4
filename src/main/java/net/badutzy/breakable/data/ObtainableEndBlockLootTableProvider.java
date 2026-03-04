@@ -1,4 +1,4 @@
-package net.gnomecraft.obtainableend.data;
+package net.badutzy.breakable.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -22,12 +22,12 @@ public class ObtainableEndBlockLootTableProvider extends FabricBlockLootTablePro
 
     @Override
     public void generate() {
-        // Always drop one End Stone (the gating factor to crafting End Portal Frame pieces).
+        // Always drop one End Portal Frame.
         // Drop an Ender Eye if there was one in the End Portal Frame piece.
         addDrop(Blocks.END_PORTAL_FRAME, LootTable.builder()
                 .pools(List.of(
                         LootPool.builder()
-                                .with(ItemEntry.builder(Items.END_STONE))
+                                .with(ItemEntry.builder(Items.END_PORTAL_FRAME))
                                 .build(),
                         LootPool.builder()
                                 .with(ItemEntry.builder(Items.ENDER_EYE)
